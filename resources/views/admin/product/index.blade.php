@@ -41,7 +41,7 @@
                                                     {{$product->full_name}}
                                                 </a>
                                             </td>
-                                            <td>{{ $product->category->name }}</td>
+                                            <td>{{ $product->category ? $product->category->name :"N/A" }}</td>
                                             <td>{{ $product->item_stocks }}</td>
                                             <td><a href="{{route('products.edit', ['product' => $product])}}" title="Edit" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                         </tr>

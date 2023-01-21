@@ -158,7 +158,7 @@
                                         {{ $stock->product->full_name }}
                                     </a>
                                 </td>
-                                <td>{{ $stock->product->category->name }}</td>
+                                <td>{{ $stock->product->category ?  $stock->product->category->name : "N/A"}}</td>
                                 <td>{{date_format(date_create($stock->date_arrived), 'F d, Y')}}</td>
                                 <td>{{ $stock->supplier->name }}</td>
                                 <td>{{ $stock->quantity }}</td>
