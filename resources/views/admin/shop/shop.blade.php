@@ -350,11 +350,17 @@
                                             <h6>Total</h6>
                                             <h6>Payment</h6>
                                             <h6>Change</h6>
+                                            <h6>VAT</h6>
+                                            <h6>Discount</h6>
+                                            <h6>Total with VAT & Discount</h6>
                                         </td>
                                         <td>
                                             <h6>₱@{{ transaction.total_cost }}</h6>
                                             <h6>₱@{{ receipt.payment }}</h6>
                                             <h6>₱@{{ receipt.change }}</h6>
+                                            <h6>@{{ transaction.tax }}% </h6>
+                                            <h6>@{{ transaction.discount }}</h6>
+                                            <h6>₱@{{ transaction.total_cost_vat_inc_disc }}</h6>
                                         </td>
                                     </tr>
                                 </tbody>
