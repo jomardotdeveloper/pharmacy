@@ -14,7 +14,7 @@
 @section("content")
 <div class="row">
     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <a class="widget quick-category">
+        <a class="widget quick-category" href="{{ route('products.index') }}">
             <div class="quick-category-head">
                 <span class="quick-category-icon qc-primary rounded-circle">
                     <i class="las la-shopping-cart"></i>

@@ -426,6 +426,7 @@
             el: "#app",
             data: {
                 sales: "{{ count(auth()->user()->sales) }}",
+                dt : undefined,
                 transaction: {
                     total_cost: 0,
                     tax: 0,
@@ -511,12 +512,12 @@
                 },
 
                 confirmCheckout: async function() {
-                    if (parseFloat($("#payment").val()) < this.transaction.total_cost) {
+                    if (parseFloat($("#payment").val()) < this.transaction.total_cost_vat_inc_disc) {
                         alertError("Payment is not enough.");
                     } else {
                         this.receipt.date = "{{ date('F d, Y') }}";
                         this.receipt.payment = parseFloat($("#payment").val());
-                        this.receipt.change = this.receipt.payment - this.transaction.total_cost;
+                        this.receipt.change = this.receipt.payment - this.transaction.total_cost_vat_inc_disc;
                         alertLoader();
                         await this.checkoutShop({
                             tax : this.transaction.tax,

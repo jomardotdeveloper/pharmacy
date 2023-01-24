@@ -25,6 +25,14 @@ class Notification extends Model
     {
         $to_time = strtotime($this->sent_datetime);
         $from_time = strtotime(date("Y-m-d H:i:s"));
+
+        $mins = round(intval(abs($to_time - $from_time) / 60, 2)) . " mins ago";
+
+        if($mins < 60) {
+            return $mins . " mins ago";
+        }else{
+            return round(intval(abs($to_time - $from_time) / 60 / 60, 2)) . " hours ago";
+        }
         return round(intval(abs($to_time - $from_time) / 60, 2)) . " mins ago";
     }
 
