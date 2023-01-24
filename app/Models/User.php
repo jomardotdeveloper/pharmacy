@@ -37,6 +37,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class, "user_id");
     }
+
+    public function getNotificationDescAttribute()
+    {
+        return $this->notifications()->orderBy("id", "desc")->get()->all();
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

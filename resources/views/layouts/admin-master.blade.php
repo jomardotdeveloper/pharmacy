@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="nav-drop-body account-items pb-0">
                                     @if(count(auth()->user()->notifications) > 0)
-                                    @foreach(auth()->user()->notifications as $notification)
+                                    @foreach(auth()->user()->notification_desc as $notification)
                                     <a class="account-item" href="{{route('stocks.index')}}">
                                         <div class="media align-center">
                                             @if($notification->type == "out")
