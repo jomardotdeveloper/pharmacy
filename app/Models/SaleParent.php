@@ -41,7 +41,7 @@ class SaleParent extends Model
 
     public function scopeToday($query)
     {
-        return $query->whereDate("sale_date", date("Y-m-d"));
+        return $query->whereDate("created_at", date("Y-m-d"));
     }
 
     public function scopeMonth($query)
