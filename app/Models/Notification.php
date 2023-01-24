@@ -28,23 +28,23 @@ class Notification extends Model
 
         $mins = round(intval(abs($to_time - $from_time) / 60, 2)) . " mins ago";
 
-        if($mins < 60) {
+        if(round(intval(abs($to_time - $from_time) / 60, 2)) < 60) {
             return $mins . " mins ago";
         }else{
             $hours = round(intval(abs($to_time - $from_time) / 60 / 60, 2)) . " hours ago";
-            if($hours < 24) {
+            if( round(intval(abs($to_time - $from_time) / 60 / 60, 2)) < 24) {
                 return $hours;
             }else{
                 $days = round(intval(abs($to_time - $from_time) / 60 / 60 / 24, 2)) . " days ago";
-                if($days < 7) {
+                if( round(intval(abs($to_time - $from_time) / 60 / 60 / 24, 2)) < 7) {
                     return $days;
                 }else{
                     $weeks = round(intval(abs($to_time - $from_time) / 60 / 60 / 24 / 7, 2)) . " weeks ago";
-                    if($weeks < 4) {
+                    if(round(intval(abs($to_time - $from_time) / 60 / 60 / 24 / 7, 2)) < 4) {
                         return $weeks;
                     }else{
                         $months = round(intval(abs($to_time - $from_time) / 60 / 60 / 24 / 7 / 4, 2)) . " months ago";
-                        if($months < 12) {
+                        if(round(intval(abs($to_time - $from_time) / 60 / 60 / 24 / 7 / 4, 2)) < 12) {
                             return $months;
                         }else{
                             $years = round(intval(abs($to_time - $from_time) / 60 / 60 / 24 / 7 / 4 / 12, 2)) . " years ago";
