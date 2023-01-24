@@ -75,21 +75,21 @@
                                             <div class="form-group">
                                                 <label>Cost per pc
                                                     <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" min="1" name="cost_per_pc" value="{{ request()->old('cost_per_pc') }}" placeholder="Cost" />
+                                                <input type="number" class="form-control" step="0.1"   name="cost_per_pc" value="{{ request()->old('cost_per_pc') }}" placeholder="Cost" />
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-sm-4 col-4">
                                             <div class="form-group">
                                                 <label>Cost per bundle
                                                     <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" min="1" id="cost_per_bundle" name="cost_per_bundle" value="{{ request()->old('cost_per_bundle') }}" placeholder="Cost" />
+                                                <input type="number" class="form-control" step="0.1" id="cost_per_bundle" name="cost_per_bundle" value="{{ request()->old('cost_per_bundle') }}" placeholder="Cost" />
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-sm-4 col-4">
                                             <div class="form-group">
                                                 <label>Cost per half
                                                     <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" min="1" name="cost_per_half" id="cost_per_half" value="{{ request()->old('cost_per_half') }}" placeholder="Cost" />
+                                                <input type="number" class="form-control" step="0.1"  name="cost_per_half" id="cost_per_half" value="{{ request()->old('cost_per_half') }}" placeholder="Cost" />
                                             </div>
                                         </div>
                                         <div class="col-xl-3 col-md-3 col-sm-3 col-3" id="quantity_per_half">
