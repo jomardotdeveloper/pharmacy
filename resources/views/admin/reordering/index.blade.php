@@ -1,5 +1,5 @@
 @extends("layouts.admin-master")
-@section("title", "Products")
+@section("title", "Reodering")
 @section("custom-styles")
 <link rel="stylesheet" type="text/css" href="/admin/plugins/table/datatable/datatables.css">
 <link rel="stylesheet" type="text/css" href="/admin/plugins/table/datatable/dt-global_style.css">
@@ -8,7 +8,7 @@
 <nav class="breadcrumb-one" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <!-- <li class="breadcrumb-item"><a href="javascript:void(0);">Branches</a></li> -->
-        <li class="breadcrumb-item" aria-current="page"><span>Products</span></li>
+        <li class="breadcrumb-item" aria-current="page"><span>Reordering</span></li>
     </ol>
 </nav>
 @endsection
@@ -17,51 +17,45 @@
     <div class="col-md-12">
         <div class="row">
             <div class="container p-0">
-                <a href="{{route('products.create')}}" class="btn btn-primary">Create Product</a>
+                <a href="{{route('reorderings.create')}}" class="btn btn-primary">Create Reordering Rule</a>
                 <div class="row layout-top-spacing date-table-container">
                     <!-- BASIC -->
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
-                            <h4 class="table-header">All Products</h4>
+                            <h4 class="table-header">All Rule</h4>
                             <div class="table-responsive mb-4">
                                 <table id="basic-dt" class="table table-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Stocks</th>
+                                            <th>Product</th>
+                                            <th>Supplier</th>
+                                            <th>Quantity</th>
+                                            <th>Min Quantity</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($products as $product)
+                                        @foreach($reorderings as $reordering)
                                         <tr>
                                             <td>
-                                                <a href="{{route('products.show', ['product' => $product])}}" title="Edit" class="text-primary">
-                                                    {{$product->full_name}}
+                                                <a href="{{route('reorderings.show', ['reordering' => $reordering])}}" title="Edit" class="text-primary">
+                                                    {{$reordering->product->full_name}}
                                                 </a>
-                                                @if($product->item_stocks <= 0)
-                                                <span class="badge badge-danger">Out of stock</span>
-                                                @elseif(in_array($product->id,$soon))
-                                                <span class="badge badge-info">Soon to Expire</span>
-                                                @elseif($product->item_stocks <= 10)
-                                                <span class="badge badge-warning">Low on Stock</span>
-                                                @endif
-
-                                                
                                             </td>
-                                            <td>{{ $product->category ? $product->category->name :"N/A" }}</td>
-                                            <td>{{ $product->item_stocks }}</td>
-                                            <td><a href="{{route('products.edit', ['product' => $product])}}" title="Edit" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
+                                            <td>{{ $reordering->supplier->name }}</td>
+                                            <td>{{ $reordering->quantity}}</td>
+                                            <td>{{ $reordering->min_quantity }}</td>
+                                            <td><a href="{{route('reorderings.edit', ['reordering' => $reordering])}}" title="Edit" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                         </tr>
 
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Stocks</th>
+                                            <th>Product</th>
+                                            <th>Supplier</th>
+                                            <th>Quantity</th>
+                                            <th>Min Quantity</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>

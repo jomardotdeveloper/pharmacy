@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,8 +16,16 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // dd(Stock::soonToExpire()->get()->all());
+
+        $product_ids = [];
+
+        foreach (Stock::soonToExpire()->get()->all() as $stock) {
+            array_push($product_ids, $stock->product_id);
+        }
         return view("admin.product.index", [
-            "products" => Product::all()
+            "products" => Product::all(),
+            "soon" => $product_ids,
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Move;
 use App\Models\Out;
 use App\Models\OutParent;
 use App\Models\Product;
@@ -77,6 +78,13 @@ class ProcurementController extends Controller
                 "cost" => $values["cost_" . strval($id)],
                 "total_cost" => floatval($values["quantity_" . strval($id)]) * floatval($values["cost_" . strval($id)]), 
                 "stock_id" => $stock->id,
+            ]);
+
+            Move::create([
+                "product_id" =>$values["product_id_" . strval($id)],
+                "quantity" =>  $values["quantity_" . strval($id)],
+                "is_in" => true,
+                "source" => $parent->formatted_number,
             ]);
         }
         return redirect()->route("procurements.show", ["procurement" => $parent]);

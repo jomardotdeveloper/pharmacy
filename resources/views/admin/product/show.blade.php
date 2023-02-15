@@ -36,6 +36,16 @@
                                         </div>
                                         <div class="col-xl-6 col-md-6 col-sm-6 col-6">
                                             <div class="form-group">
+                                                <label>Medicine Type
+                                                    <span class="text-danger">*</span></label>
+                                                <select class="form-control basic" name="medicine_type" disabled>
+                                                    <option value="generic" {{ $product->medicine_type == "generic" ? "selected" : "" }}>Generic</option>
+                                                    <option value="branded" {{ $product->medicine_type == "branded" ? "selected" : "" }}>Branded</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-md-6 col-sm-6 col-6">
+                                            <div class="form-group">
                                                 <label>Category
                                                     <span class="text-danger">*</span></label>
                                                 <select class="form-control basic" name="category_id" readonly="true">
@@ -55,6 +65,13 @@
                                                 <label>Variant
                                                     <span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" name="variant" value="{{ $product->variant }}" placeholder="Enter Variant" readonly="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-md-6 col-sm-6 col-6">
+                                            <div class="form-group">
+                                                <label>Supplier Cost
+                                                    <span class="text-danger">*</span></label>
+                                                <input type="number" class="form-control" step="0.1"   name="srp" value="{{ $product->srp }}" disabled placeholder="Cost" />
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-sm-4 col-4">

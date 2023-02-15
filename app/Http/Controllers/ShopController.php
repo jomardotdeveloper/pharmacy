@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
 use App\Models\Discount;
+use App\Models\Move;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleParent;
@@ -66,6 +67,9 @@ class ShopController extends Controller
                 "unit" => $product["unit"]["val"],
                 "total_cost" => $product["cost"]
             ]);
+
+           
+    
             $currentProduct = Product::find($product["product"]["id"]);
             $stocks = Stock::item($currentProduct->id)->notExpired()->get()->all();
             $currentQuantity = intval($product["quantity"]) * intval($product["unit"]["qty"]);
@@ -90,6 +94,12 @@ class ShopController extends Controller
                 }
             }
 
+            Move::create([
+                "product_id" =>  $product["product"]["id"],
+                "quantity" => $product["quantity"],
+                "is_in" => false,
+                "source" => $parent->formatted_number,
+            ]);
 
             $sale->save();
         }

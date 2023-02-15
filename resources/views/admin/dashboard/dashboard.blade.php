@@ -14,85 +14,153 @@
 @section("content")
 <div class="row">
     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <a class="widget quick-category" href="{{ route('products.index') }}">
-            <div class="quick-category-head">
-                <span class="quick-category-icon qc-primary rounded-circle">
-                    <i class="las la-shopping-cart"></i>
-                </span>
-            </div>
+        <a class="widget quick-category" href="#">
             <div class="quick-category-content">
-                <h3>{{ count($products) }}</h3>
-                <p class="font-17 text-primary mb-0">Total Products</p>
+                <p class="font-17 text-primary mb-0">Expiring < 30 Days</p>
             </div>
-        </a>
-    </div>
-    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing" onclick="openLow()">
-        <a class="widget quick-category">
-            <div class="quick-category-head">
-                <span class="quick-category-icon qc-warning rounded-circle">
-                    <i class="las la-boxes"></i>
-                </span>
-            </div>
-            <div class="quick-category-content">
-                <h3>{{ count($low)  }}</h3>
-                <p class="font-17 text-warning mb-0">Low on Stock</p>
-            </div>
-        </a>
-    </div>
-    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing" onclick="openOut()">
-        <a class="widget quick-category">
-            <div class="quick-category-head">
-                <span class="quick-category-icon qcompare-danger rounded-circle">
-                    <i class="las la-times"></i>
-                </span>
-            </div>
-            <div class="quick-category-content">
-                <h3>{{ count($out)  }}</h3>
-                <p class="font-17 text-danger mb-0">Out of Stock</p>
-            </div>
+            <center>
+                <canvas id="demo" class="mx-auto"></canvas>
+                <div id="preview-textfield"></div>
+            </center>
         </a>
     </div>
     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <a class="widget quick-category">
-            <div class="quick-category-head">
-                <span class="quick-category-icon qc-success-teal rounded-circle">
-                    <i class="las la-money-bill"></i>
-                </span>
-            </div>
+        <a class="widget quick-category" href="#">
             <div class="quick-category-content">
-                <h3>{{ count($sales) }}</h3>
-                <p class="font-17 text-success-teal mb-0">Total Sales Today</p>
+                <p class="font-17 text-primary mb-0">Expiring < 90 Days</p>
             </div>
+            <center>
+                <canvas id="demo2" class="mx-auto"></canvas>
+                <div id="preview-textfield2"></div>
+            </center>
         </a>
     </div>
-    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing" onclick="openSoon()">
-        <a class="widget quick-category">
-            <div class="quick-category-head">
-                <span class="quick-category-icon qcompare-danger rounded-circle">
-                    <i class="las la-calendar-times"></i>
-                </span>
-            </div>
-            <div class="quick-category-content">
-                <h3>{{ count($soon) }}</h3>
-                <p class="font-17 text-danger mb-0">Soon to expire</p>
-            </div>
-        </a>
-    </div>
-    @if($product)
     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <a class="widget quick-category">
-            <div class="quick-category-head">
-                <span class="quick-category-icon qcompare-success rounded-circle">
-                    <i class="las la-shopping-cart"></i>
-                </span>
-            </div>
+        <a class="widget quick-category" href="#">
             <div class="quick-category-content">
-                <h3>{{ $product->name }}</h3>
-                <p class="font-17 text-success mb-0">Product of the Month</p>
+                <p class="font-17 text-primary mb-0">Expiring < 180 Days</p>
             </div>
+            <center>
+                <canvas id="demo3" class="mx-auto"></canvas>
+                <div id="preview-textfield3"></div>
+            </center>
         </a>
     </div>
-    @endif
+    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <a class="widget quick-category" href="#">
+            <div class="quick-category-content">
+                <p class="font-17 text-primary mb-0">Days Left</p>
+            </div>
+            <center>
+                <div class="table-responsive">
+                    <table class="table mb-0 text-center" id="line_ids">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Days left</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($soon_30 as $s)
+                                <tr>
+                                    <td>{{ $s->product->name }}</td>
+                                    <td>{{ $s->days_left }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </center>
+        </a>
+    </div>
+    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <a class="widget quick-category" href="#">
+            <div class="quick-category-content">
+                <p class="font-17 text-primary mb-0">Days Left</p>
+            </div>
+            <center>
+                <div class="table-responsive">
+                    <table class="table mb-0 text-center" id="line_ids">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Days left</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($soon_90 as $s)
+                                <tr>
+                                    <td>{{ $s->product->name }}</td>
+                                    <td>{{ $s->days_left }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                </div>
+            </center>
+        </a>
+    </div>
+    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <a class="widget quick-category" href="#">
+            <div class="quick-category-content">
+                <p class="font-17 text-primary mb-0">Days Left</p>
+            </div>
+            <center>
+                <div class="table-responsive">
+                    <table class="table mb-0 text-center" id="line_ids">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Days left</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($soon_180 as $s)
+                                <tr>
+                                    <td>{{ $s->product->name }}</td>
+                                    <td>{{ $s->days_left }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </center>
+        </a>
+    </div>
+    
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <a class="widget quick-category" href="#">
+            <div class="quick-category-content">
+                <p class="font-17 text-primary mb-0">Low on Stock</p>
+            </div>
+            <center>
+                <div><canvas id="myChartLow"></canvas></div>
+            </center>
+        </a>
+    </div>
+
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <a class="widget quick-category" href="#">
+            <div class="quick-category-content">
+                <p class="font-17 text-primary mb-0">Out of Stock</p>
+            </div>
+            <center>
+                <div><canvas id="myChartOut"></canvas></div>
+            </center>
+        </a>
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <a class="widget quick-category" href="#">
+            <div class="quick-category-content">
+                <p class="font-17 text-primary mb-0">Top 5 Sales</p>
+            </div>
+            <center>
+                <div><canvas id="myChart"></canvas></div>
+            </center>
+        </a>
+    </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
         <div class="widget widget-chart-one">
             <div class="widget-heading">
@@ -278,6 +346,143 @@
 <script src="/admin/plugins/apex/apexcharts.min.js"></script>
 <script src="/admin/assets/js/dashboard/dashboard_1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{ asset('dist-gauge/gauge.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctxOut = document.getElementById('myChartOut');
+    var dataOut = {!! json_encode($out) !!};
+    // console.log(data);
+    // var dataParsed = JSON.parse(data);
+    // console.log(dataParsed);
+    var valuesOut = [];
+    var labelsOut = [];
+
+    for (var i = 0; i < dataOut.length; i++) {
+        valuesOut.push(100);
+        labelsOut.push(dataOut[i].product.name);
+    }
+    // var dataParsed = [];
+    new Chart(ctxOut, {
+        type: 'pie',
+        data: {
+        labels: labelsOut,
+        datasets: [{
+            label: 'Out of Stock',
+            data: valuesOut,
+            borderWidth: 1
+        }]
+        },
+        options: {
+        scales: {
+            y: {
+            beginAtZero: true
+            }
+        }
+        }
+    });
+</script>
+<script>
+    const ctxLow = document.getElementById('myChartLow');
+    var dataLow = {!! json_encode($low) !!};
+    // console.log(data);
+    // var dataParsed = JSON.parse(data);
+    // console.log(dataParsed);
+    var valuesLow = [];
+    var labelsLow = [];
+
+    for (var i = 0; i < dataLow.length; i++) {
+        valuesLow.push(dataLow[i].quantity);
+        labelsLow.push(dataLow[i].product.name);
+    }
+    // var dataParsed = [];
+    new Chart(ctxLow, {
+        type: 'pie',
+        data: {
+        labels: labelsLow,
+        datasets: [{
+            label: 'Low On Stock',
+            data: valuesLow,
+            borderWidth: 1
+        }]
+        },
+        options: {
+        scales: {
+            y: {
+            beginAtZero: true
+            }
+        }
+        }
+    });
+    
+</script>
+<script>
+    const ctx = document.getElementById('myChart');
+    var data = {!! json_encode($top_sales) !!};
+    // console.log(data);
+    // var dataParsed = JSON.parse(data);
+    // console.log(dataParsed);
+    var values = [];
+    var labels = [];
+
+    for (var i = 0; i < data.length; i++) {
+        values.push(data[i].total);
+        labels.push(data[i].name);
+    }
+    // var dataParsed = [];
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+        labels: labels,
+        datasets: [{
+            label: 'Top 5 Sales',
+            data: values,
+            borderWidth: 1
+        }]
+        },
+        options: {
+        scales: {
+            y: {
+            beginAtZero: true
+            }
+        }
+        }
+    });
+</script>
+<script>
+    var opts = {};
+    var target = document.getElementById('demo'); 
+    var gauge = new Gauge(target).setOptions(opts);
+
+    document.getElementById("preview-textfield").className = "preview-textfield";
+    gauge.setTextField(document.getElementById("preview-textfield"));
+    gauge.maxValue = parseInt("{{ $soon_total }}");
+    gauge.setMinValue(0); 
+    gauge.set(parseInt("{{ count($soon_30) }}"));
+    gauge.animationSpeed = 32;
+
+
+    var opts2 = {};
+    var target2 = document.getElementById('demo2'); 
+    var gauge2 = new Gauge(target2).setOptions(opts2);
+
+    document.getElementById("preview-textfield2").className = "preview-textfield";
+    gauge2.setTextField(document.getElementById("preview-textfield2"));
+    gauge2.maxValue = parseInt("{{ $soon_total }}");
+    gauge2.setMinValue(0); 
+    gauge2.set(parseInt("{{ count($soon_90) }}"));
+    gauge2.animationSpeed = 32;
+
+    var opts3 = {};
+    var target3 = document.getElementById('demo3'); 
+    var gauge3 = new Gauge(target3).setOptions(opts3);
+
+    document.getElementById("preview-textfield3").className = "preview-textfield";
+    gauge3.setTextField(document.getElementById("preview-textfield3"));
+    gauge3.maxValue = parseInt("{{ $soon_total }}");
+    gauge3.setMinValue(0); 
+    gauge3.set(parseInt("{{ count($soon_180) }}"));
+    gauge3.animationSpeed = 32;
+</script>
 <script>
     function openLow() {
         $("#lowModal").modal("show");

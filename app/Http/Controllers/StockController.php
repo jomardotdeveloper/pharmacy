@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Move;
 use App\Models\Out;
 use App\Models\OutParent;
 use App\Models\Product;
@@ -61,6 +62,13 @@ class StockController extends Controller
                 "quantity" => $values["quantity_" . strval($id)],
                 "supplier_id" => $values["supplier_id_" . strval($id)]
             ]);
+            
+            Move::create([
+                "product_id" => $values["product_id_" . strval($id)],
+                "quantity" => $values["quantity_" . strval($id)],
+                "is_in" => True,
+                "source" => "Inventory Adjusment"
+            ]);
 
             $out = Out::create([
                 "parent_id" => $outParent->id,
@@ -117,8 +125,21 @@ class StockController extends Controller
      */
     public function update(Request $request, Stock $stock)
     {
+        $isIn = $stock->quantity < $request->get("quantity");
+        // CURRENT STOCK : 25
+
+        // INPUT : 30
         $stock->fill($request->all());
         $stock->save();
+
+        Move::create([
+            "product_id" => $stock->product_id,
+            "quantity" => $request->get("quantity"),
+            "is_in" => $isIn,
+            "source" => "Inventory Adjusment"
+        ]);
+
+
         return redirect()->route("stocks.show", [
             "stock" => $stock
         ]);

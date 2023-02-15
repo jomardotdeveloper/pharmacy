@@ -229,10 +229,34 @@
                         </a>
                     </li>
                     <li class="menu">
+                        <a href="{{ route("canvassings.index") }}" aria-expanded="false" class="dropdown-toggle" data-active="{{ request()->route()->getName() == 'canvassings.index' ? 'true' : 'false' }}">
+                            <div class="">
+                                <i class="lab la-gg"></i>
+                                <span>Canvassing</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="{{ route("reorderings.index") }}" aria-expanded="false" class="dropdown-toggle" data-active="{{ request()->route()->getName() == 'reorderings.index' ? 'true' : 'false' }}">
+                            <div class="">
+                                <i class="lab la-opencart"></i>
+                                <span>Reordering</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu">
                         <a href="{{ route('procurements.index') }}" aria-expanded="false" class="dropdown-toggle" data-active="{{ request()->route()->getName() == 'procurements.index' ? 'true' : 'false' }}">
                             <div class="">
                                 <i class="las la-industry"></i>
                                 <span>Procurement</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="{{ route('moves.index') }}" aria-expanded="false" class="dropdown-toggle" data-active="{{ request()->route()->getName() == 'moves.index' ? 'true' : 'false' }}">
+                            <div class="">
+                                <i class="las la-box"></i>
+                                <span>Stock Moves</span>
                             </div>
                         </a>
                     </li>

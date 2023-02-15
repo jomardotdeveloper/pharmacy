@@ -13,16 +13,49 @@ class DashboardController extends Controller
 
     public function dashboard()
     {
+        // dd($this->getTopSales()[0]);
         $this->getGraphData(31, 1);
         // dd(Sale::max("product_id"));
+        // dd()
         return view("admin.dashboard.dashboard", [
             "products" => Product::all(),
             "sales" => SaleParent::today()->get()->all(),
             "out" => Stock::outOfStock()->get()->all(),
             "low" => Stock::lowOnStock()->get()->all(),
             "soon" => Stock::soonToExpire()->get()->all(),
-            "product" => $this->getProductOfTheMonth()
+            "product" => $this->getProductOfTheMonth(),
+            "soon_30" => Stock::soonToExpire30()->get()->all(),
+            "soon_90" => Stock::soonToExpire90()->get()->all(),
+            "soon_180" => Stock::soonToExpire180()->get()->all(),
+            "top_sales" => $this->getTopSales(),
+            "soon_total" => count(Stock::soonToExpire30()->get()->all()) + count(Stock::soonToExpire90()->get()->all()) + count(Stock::soonToExpire180()->get()->all()) + count(Stock::soonToExpire()->get()->all()), 
         ]);
+    }
+
+    public function getTopSales(){
+        $products = Product::all();
+        $sales = Sale::all();
+        $top = [];
+        $top5 = [];
+
+
+        foreach($products as $product){
+            foreach($product->sales as $sale){
+                if(!array_key_exists($product->id, $top)){
+                    $top[$product->id] = 0;
+                }
+                $top[$product->id] += $sale->total_cost;
+            }
+        }
+
+        arsort($top);
+        // dd($products[0]->sales);
+        foreach($top as $key => $value){
+            $product = Product::find($key);
+
+            array_push($top5, ["name" => $product->name, "total" => $value]);
+        }
+        return $top5;
     }
 
     public function getGraphData($daysInMonth, $month)

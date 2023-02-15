@@ -19,9 +19,15 @@ class Product extends Model
         "cost_per_bundle",
         "quantity_per_half",
         "quantity_per_bundle",
-        "category_id"
+        "category_id",
+        "srp",
+        "medicine_type",
     ];
 
+
+    public function reorderings(){
+        return $this->hasMany(Reordering::class, "product_id");
+    }
 
     public function category()
     {
@@ -56,6 +62,15 @@ class Product extends Model
         }
     }
 
+    public function getTotalSalesAttribute()
+    {
+        $count = 0;
+        foreach ($this->sales as $sale) {
+            $count = $count + $sale->total_cost;
+        }
+        return $count;
+    }
+
     public function getFullNameAttribute()
     {
         if ($this->variant) {
@@ -63,4 +78,6 @@ class Product extends Model
         }
         return $this->name;
     }
+
+    
 }
