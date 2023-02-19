@@ -17,6 +17,24 @@ class DashboardController extends Controller
         $this->getGraphData(31, 1);
         // dd(Sale::max("product_id"));
         // dd()
+
+        $allProducts = Product::all();
+        $seasonalProduct = null;
+        foreach($allProducts as $product){
+            $month = $product->seasonal ?  explode("|", $product->seasonal) : false;
+            $currMonth = date("m");
+            if($month){
+                if(in_array($currMonth, $month)){
+                    $seasonalProduct = $product;
+                }
+            }
+                
+
+
+        }
+
+
+        // $seasonal = Product::where();
         return view("admin.dashboard.dashboard", [
             "products" => Product::all(),
             "sales" => SaleParent::today()->get()->all(),
@@ -28,6 +46,7 @@ class DashboardController extends Controller
             "soon_90" => Stock::soonToExpire90()->get()->all(),
             "soon_180" => Stock::soonToExpire180()->get()->all(),
             "top_sales" => $this->getTopSales(),
+            "seasonal" => $seasonalProduct,
             "soon_total" => count(Stock::soonToExpire30()->get()->all()) + count(Stock::soonToExpire90()->get()->all()) + count(Stock::soonToExpire180()->get()->all()) + count(Stock::soonToExpire()->get()->all()), 
         ]);
     }

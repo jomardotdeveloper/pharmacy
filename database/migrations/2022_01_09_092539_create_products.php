@@ -16,6 +16,7 @@ class CreateProducts extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->string("seasonal")->nullable();
             $table->float("srp")->nullable();
             $table->enum("medicine_type", ['generic', 'branded'])->default('generic');
             $table->string("measurement")->nullable();

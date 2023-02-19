@@ -16,6 +16,19 @@
     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
         <a class="widget quick-category" href="#">
             <div class="quick-category-content">
+                <p class="font-17 text-primary mb-0">Product for the month (Seasonal)</p>
+            </div>
+            <h2>
+                {{ $seasonal->name }}
+            </h2>
+        </a>
+    </div>
+</div>
+<div class="row">
+    
+    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <a class="widget quick-category" href="#">
+            <div class="quick-category-content">
                 <p class="font-17 text-primary mb-0">Expiring < 30 Days</p>
             </div>
             <center>

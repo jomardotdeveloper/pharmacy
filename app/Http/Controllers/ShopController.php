@@ -11,6 +11,7 @@ use App\Models\SaleParent;
 use App\Models\Setting;
 use App\Models\Stock;
 use App\Models\Tax;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -100,6 +101,34 @@ class ShopController extends Controller
                 "is_in" => false,
                 "source" => $parent->formatted_number,
             ]);
+
+
+            if($currentProduct->reorderings)
+            {
+                $rule = $currentProduct->reorderings->first();
+
+                if($currentProduct->item_stocks <= $rule->min_quantity){
+                    $stock = Stock::create([
+                        "product_id" => $currentProduct->id,
+                        "expiration_date" => Carbon::now()->addDays(60),
+                        "quantity" => $rule->quantity,
+                        "supplier_id" => $rule->supplier_id,
+                    ]);
+
+                    Move::create([
+                        "product_id" =>  $product["product"]["id"],
+                        "quantity" => $product["quantity"],
+                        "is_in" => true,
+                        "source" => "REORDERING RULE",
+                    ]);
+                }
+                
+                // Stock::create([
+                //     "product_id" => $product["product"]["id"],
+                //     "quantity" => $product["product"]["reorderings"]["quantity"],
+                //     "expiration_date" => $product["product"]["reorderings"]["expiration_date"],
+                // ]);
+            }
 
             $sale->save();
         }
