@@ -19,7 +19,7 @@
                 <p class="font-17 text-primary mb-0">Product for the month (Seasonal)</p>
             </div>
             <h2>
-                {{ $seasonal->name }}
+                {{ $seasonal ? $seasonal->name : "N/A"}}
             </h2>
         </a>
     </div>
