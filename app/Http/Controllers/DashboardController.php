@@ -33,6 +33,22 @@ class DashboardController extends Controller
 
         }
 
+
+        if(!$seasonalProduct){
+            $numberOfSales = 0;
+            $maxProduct = null;
+
+            foreach($allProducts as $product){
+                if($numberOfSales < $product->sales->count()){
+                    $numberOfSales = $product->sales->count();
+                    $maxProduct = $product;
+                }
+            }
+            $seasonalProduct =  $maxProduct;
+        }
+
+        
+
         // $seasonal = Product::where();
         return view("admin.dashboard.dashboard", [
             "products" => Product::all(),
