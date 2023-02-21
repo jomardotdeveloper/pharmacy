@@ -33,7 +33,6 @@ class DashboardController extends Controller
 
         }
 
-
         // $seasonal = Product::where();
         return view("admin.dashboard.dashboard", [
             "products" => Product::all(),

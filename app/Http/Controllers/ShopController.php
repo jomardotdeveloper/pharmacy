@@ -106,22 +106,24 @@ class ShopController extends Controller
             if($currentProduct->reorderings)
             {
                 $rule = $currentProduct->reorderings->first();
-
-                if($currentProduct->item_stocks <= $rule->min_quantity){
-                    $stock = Stock::create([
-                        "product_id" => $currentProduct->id,
-                        "expiration_date" => Carbon::now()->addDays(60),
-                        "quantity" => $rule->quantity,
-                        "supplier_id" => $rule->supplier_id,
-                    ]);
-
-                    Move::create([
-                        "product_id" =>  $product["product"]["id"],
-                        "quantity" => $product["quantity"],
-                        "is_in" => true,
-                        "source" => "REORDERING RULE",
-                    ]);
+                if($rule){
+                    if($currentProduct->item_stocks <= $rule->min_quantity){
+                        $stock = Stock::create([
+                            "product_id" => $currentProduct->id,
+                            "expiration_date" => Carbon::now()->addDays(60),
+                            "quantity" => $rule->quantity,
+                            "supplier_id" => $rule->supplier_id,
+                        ]);
+    
+                        Move::create([
+                            "product_id" =>  $product["product"]["id"],
+                            "quantity" => $product["quantity"],
+                            "is_in" => true,
+                            "source" => "REORDERING RULE",
+                        ]);
+                    }
                 }
+                
                 
                 // Stock::create([
                 //     "product_id" => $product["product"]["id"],
